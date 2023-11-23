@@ -12,7 +12,7 @@ const Page = () => {
         item.word.toLowerCase().includes(query.toLowerCase())
       );
       setResults(filteredResults.slice(0, 20));
-      // limiting to 20
+      // Limiting to 20
     } else {
       setResults([]);
     }
@@ -20,15 +20,32 @@ const Page = () => {
 
   return (
     <div className="flex justify-center items-center bg-[#AF69F9] h-screen">
-      <div className="flex flex-col bg-red-300">
-        <input type="text" onChange={(e) => setQuery(e.target.value)} />
+      <div className="flex space-x-2">
+        <div className="flex flex-col">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+
+          {query !== "" && (
+            <div className="bg-white h-[200px] overflow-auto w-full space-x-5 cursor-pointer">
+              <ul>
+                {results.map((item, index) => (
+                  <li onClick={() => setQuery(item.word)} key={index}>
+                    {item.word}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
         {query !== "" && (
-          <div className="bg-white h-25 overflow-auto w-full space-x-5">
-            <ul>
-              {results.map((item, index) => (
-                <li key={index}>{item.word}</li>
-              ))}
-            </ul>
+          <div
+            className="text-white cursor-pointer"
+            onClick={() => setQuery("")}
+          >
+            X
           </div>
         )}
       </div>
